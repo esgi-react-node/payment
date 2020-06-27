@@ -1,4 +1,4 @@
 start:
-	docker-compose up -d db server client adminer
+	docker-compose up -d db server adminer
 stop:
 	docker-compose down
