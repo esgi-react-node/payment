@@ -1,16 +1,15 @@
 const sequelize = require("../../lib/sequelize");
 const { DataTypes, Model } = require("sequelize");
 const Merchant = require("./Merchant");
-const Currency = require("./Currency");
 
 class Transaction extends Model {}
 Transaction.init(
   {
-    amount: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-    },
     tag: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    status: {
       type: DataTypes.STRING,
       allowNull: false
     }
@@ -25,7 +24,5 @@ Transaction.init(
 Transaction.belongsTo(Merchant);
 Merchant.hasMany(Transaction);
 
-Transaction.belongsTo(Currency);
-Currency.hasMany(Transaction);
 
 module.exports = Transaction;

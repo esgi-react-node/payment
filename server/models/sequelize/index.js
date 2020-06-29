@@ -3,16 +3,18 @@ const Rate = require('./Rate');
 const Merchant = require('./Merchant');
 const Transaction = require('./Transaction');
 const User = require('./User');
+const Operation = require("./Operation");
 
 sequelize
   .sync({ alter: true })
   .then((result) => console.log("Sequelize models synced"))
-  .catch((result) => console.error("Error while syncing models"));
+  .catch((error) => console.error("Error while syncing models", error));
 
 module.exports = {
   sequelize,
   Rate,
   Merchant,
+  Operation,
   Transaction,
-  User
+  User,
 };

@@ -4,7 +4,7 @@ const verifyToken = require("../middlewares/verifyToken");
 
 const routerManager = (app) => {
   app.use("/", SecurityRouter);
-  app.use(verifyToken);
+  // app.use(verifyToken);
   app.use('/transactions', TransactionRouter)
 };
 

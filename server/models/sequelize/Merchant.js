@@ -1,6 +1,5 @@
 const sequelize = require("../../lib/sequelize");
 const { DataTypes, Model } = require("sequelize");
-const Currency = require("./Currency");
 
 class Merchant extends Model {}
 Merchant.init(
@@ -20,7 +19,5 @@ Merchant.init(
     paranoid: true,
   }
 );
-Merchant.belongsTo(Currency);
-Currency.hasMany(Merchant);
 
 module.exports = Merchant;
