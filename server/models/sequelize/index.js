@@ -1,5 +1,8 @@
 const sequelize = require("../../lib/sequelize");
 const Rate = require('./Rate');
+const Merchant = require('./Merchant');
+const Transaction = require('./Transaction');
+const User = require('./User');
 
 sequelize
   .sync({ alter: true })
@@ -8,5 +11,8 @@ sequelize
 
 module.exports = {
   sequelize,
-  Rate
+  Rate,
+  Merchant,
+  Transaction,
+  User
 };
