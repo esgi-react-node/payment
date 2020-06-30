@@ -14,14 +14,15 @@ router.get("/", (req, res) => {
 
 // create a transaction
 router.post("/", async (req, res) => {
-  const {clientId, billing, shipping, cart, amount, merchantId} = req.body;
+  const {customerId, tag, billing, shipping, cart, amount, merchantId} = req.body;
   const billingAddress = await Address.create(billing);
   const shippingAddress = await Address.create(shipping);
   Transaction.create({
-    clientId,
+    customerId,
     billingId: billingAddress.id,
     shippingId: shippingAddress.id,
     cart,
+    tag,
     amount,
     status: 'created',
     MerchantId: merchantId
@@ -36,6 +37,12 @@ router.get("/:id", (req, res) => {
   Transaction.findByPk(req.params.id, {
     include: [{
       model: Operation
+    }, {
+      model: Address,
+      as: 'billing'
+    }, {
+      model: Address,
+      as: 'shipping'
     }]
   })
     .then((data) => (data ? res.json(data) : res.sendStatus(404)))
@@ -44,6 +51,9 @@ router.get("/:id", (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// payment process
+router.post("/:id/payment", async (req, res) => {})
 
 // refund transaction
 router.post("/:id/refund", async (req, res) => {
