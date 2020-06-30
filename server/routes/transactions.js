@@ -65,7 +65,6 @@ router.post("/:id/payment", async (req, res) => {
     TransactionId: transaction.id
   });
   PspService.processPayment(amount, creditCardInfo).then(async () => {
-    console.log('psp confirmation received')
     operation.status = 'done';
     await operation.save();
     if (amount === transaction.amount) {
