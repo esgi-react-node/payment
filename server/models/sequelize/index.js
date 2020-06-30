@@ -5,6 +5,7 @@ const Transaction = require('./Transaction');
 const User = require('./User');
 const Operation = require("./Operation");
 const Address = require('./Address');
+require("./hooks");
 
 sequelize
   .sync({ alter: true })
