@@ -1,9 +1,9 @@
 const express = require("express");
 const handleValidationError = require("../helpers/handleValidationError");
-const { Operation, Transaction } = require("../models/sequelize");
+const { Operation, Transaction, Address } = require("../models/sequelize");
 const router = express.Router();
 
-// CGET
+// get all transactions
 router.get("/", (req, res) => {
   Transaction.findAll({
     paranoid: false
@@ -12,26 +12,26 @@ router.get("/", (req, res) => {
     .catch((err) => res.sendStatus(500));
 });
 
-// POST
+// create a transaction
 router.post("/", async (req, res) => {
-  const {amount, tag, merchantId} = req.body;
-  const transaction = await Transaction.create({
-    tag,
-    status: 'pending',
-    MerchantId: merchantId
-  });
-  Operation.create({
-    type: 'payin',
+  const {clientId, billing, shipping, cart, amount, merchantId} = req.body;
+  const billingAddress = await Address.create(billing);
+  const shippingAddress = await Address.create(shipping);
+  Transaction.create({
+    clientId,
+    billingId: billingAddress.id,
+    shippingId: shippingAddress.id,
+    cart,
     amount,
-    status: 'pending',
-    TransactionId: transaction.id
+    status: 'created',
+    MerchantId: merchantId
   }).then((data) => res.status(201).json(data))
     .catch((error) => {
       handleValidationError(res, error);
     });
 });
 
-// GET
+// get single transaction
 router.get("/:id", (req, res) => {
   Transaction.findByPk(req.params.id, {
     include: [{
@@ -45,7 +45,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// REFUND
+// refund transaction
 router.post("/:id/refund", async (req, res) => {
   const { amount } = req.body;
   const transaction = await Transaction.findByPk(req.params.id, {

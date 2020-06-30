@@ -4,6 +4,7 @@ const Merchant = require('./Merchant');
 const Transaction = require('./Transaction');
 const User = require('./User');
 const Operation = require("./Operation");
+const Address = require('./Address');
 
 sequelize
   .sync({ alter: true })
@@ -17,4 +18,5 @@ module.exports = {
   Operation,
   Transaction,
   User,
+  Address,
 };
