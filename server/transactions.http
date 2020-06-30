@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/transactions/10
+GET http://localhost:3000/transactions/12
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImttYXJxdWVzQHZldGl4eTcuZnIiLCJpYXQiOjE1OTI1NjU4OTcsImV4cCI6MTU5MjU2OTQ5N30.P7tLk53cajOAiXgsYCP16-n_qpTHNiVE29qUk_l2YKs
 
 ###
@@ -17,8 +17,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImttY
 Content-Type: application/json
 
 {
-  "tag": "order 404",
-  "amount": 10.50,
+  "customerId": "1",
+  "tag": "orderId: 12341234",
+  "cart": {
+    "patrick": 2,
+    "michel": 3
+  },
+  "amount": 1050,
+  "billing": {
+    "fullName": "Marcel Patoulachi",
+    "address": "place de la tour Eiffel",
+    "town": "Paris",
+    "zip": "75001",
+    "country": "France"
+  },
+  "shipping": {
+    "fullName": "Marcel Patoulachi",
+    "address": "place de la tour Eiffel",
+    "town": "Paris",
+    "zip": "75001",
+    "country": "France"
+  },
   "merchantId": 1
 }
 
