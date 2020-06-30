@@ -27,7 +27,9 @@ router.post("/", async (req, res) => {
     amount,
     status: 'created',
     MerchantId: merchantId
-  }).then((data) => res.status(201).json(data))
+  }).then((data) => {
+    res.status(201).json(data)
+  })
     .catch((error) => {
       handleValidationError(res, error);
     });
@@ -57,7 +59,7 @@ router.get("/:id", (req, res) => {
 router.post("/:id/payment", async (req, res) => {
   const {creditCardInfo, amount} = req.body;
   const transaction = await Transaction.findByPk(req.params.id)
-  if (transaction.status === 'payed') { return res.status(500).send('Transaction already payed')}
+  if (transaction.status === 'paid') { return res.status(500).send('Transaction already paid')}
   const operation = await Operation.create({
     type: 'capture',
     amount,
@@ -68,7 +70,7 @@ router.post("/:id/payment", async (req, res) => {
     operation.status = 'done';
     await operation.save();
     if (amount === transaction.amount) {
-      transaction.status = 'payed';
+      transaction.status = 'paid';
       await transaction.save();
     }
     return res.sendStatus(200);
@@ -107,6 +109,12 @@ router.post("/:id/refund", async (req, res) => {
     });
 });
 
-
+router.post("/:id/cancel", async (req, res) => {
+  const transaction = await Transaction.findByPk(req.params.id);
+  if (transaction.status === 'paid') { return res.sendStatus(403) }
+  transaction.status = 'cancel';
+  await transaction.save();
+  res.sendStatus(200);
+})
 
 module.exports = router;
