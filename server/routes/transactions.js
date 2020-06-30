@@ -59,7 +59,8 @@ router.get("/:id", (req, res) => {
 
 // payment process
 router.post("/:id/payment", async (req, res) => {
-  const {amount, validUrl} = req.body;
+  let {amount, validUrl} = req.body;
+  amount *= 100;
   const creditCardInfo = {...req.body};
   const transaction = await Transaction.findByPk(req.params.id)
   if (transaction.status === 'paid') { return res.status(500).send('Transaction already paid')}
@@ -69,6 +70,9 @@ router.post("/:id/payment", async (req, res) => {
     status: 'pending',
     TransactionId: transaction.id
   });
+  transaction.status = 'pending';
+  await transaction.save();
+  res.redirect(validUrl);
   PspService.processPayment(amount, creditCardInfo).then(async () => {
     operation.status = 'done';
     await operation.save();
@@ -76,7 +80,6 @@ router.post("/:id/payment", async (req, res) => {
       transaction.status = 'paid';
       await transaction.save();
     }
-    return res.redirect(validUrl);
   }).catch(err => {
     console.error(err);
     return res.render('error');
