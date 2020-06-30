@@ -8,6 +8,14 @@ Merchant.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    confirmUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    cancelUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     credit: {
       type: DataTypes.FLOAT,
       allowNull: false,

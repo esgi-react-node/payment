@@ -2,6 +2,7 @@ const express = require("express");
 const handleValidationError = require("../helpers/handleValidationError");
 const { Operation, Transaction, Address } = require("../models/sequelize");
 const PspService = require('../services/pspService');
+const MerchantService = require('../services/MerchantService');
 const router = express.Router();
 
 // get all transactions
@@ -64,7 +65,7 @@ router.post("/:id/payment", async (req, res) => {
   const creditCardInfo = {...req.body};
   const transaction = await Transaction.findByPk(req.params.id)
   if (transaction.status === 'paid') { return res.status(500).send('Transaction already paid')}
-  const operation = await Operation.create({
+  await Operation.create({
     type: 'capture',
     amount,
     status: 'pending',
@@ -73,17 +74,7 @@ router.post("/:id/payment", async (req, res) => {
   transaction.status = 'pending';
   await transaction.save();
   res.redirect(validUrl);
-  PspService.processPayment(amount, creditCardInfo).then(async () => {
-    operation.status = 'done';
-    await operation.save();
-    if (amount === transaction.amount) {
-      transaction.status = 'paid';
-      await transaction.save();
-    }
-  }).catch(err => {
-    console.error(err);
-    return res.render('error');
-  })
+  PspService.processPayment(transaction.id, amount, creditCardInfo);
 })
 
 // refund transaction
@@ -121,7 +112,28 @@ router.post("/:id/cancel", async (req, res) => {
   if (transaction.status === 'paid') { return res.sendStatus(403) }
   transaction.status = 'cancel';
   await transaction.save();
+  await MerchantService.cancelTransaction(transaction);
   res.redirect(cancelUrl);
+})
+
+router.put("/:id/confirm", async (req,res) => {
+  const transaction = await Transaction.findByPk(req.params.id,{
+    include:[{
+      model:Operation
+    }]
+  });
+
+  const captureOperation = transaction.Operations.find(op => op.type === 'capture');
+  captureOperation.status = 'done';
+  await captureOperation.save();
+
+  if (captureOperation.amount === transaction.amount) {
+    transaction.status = 'paid';
+    await transaction.save();
+  }
+
+  MerchantService.confirmTransaction(transaction);
+  return res.sendStatus(200);
 })
 
 module.exports = router;
