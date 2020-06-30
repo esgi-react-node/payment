@@ -27,8 +27,10 @@ router.post("/", async (req, res) => {
     amount,
     status: 'created',
     MerchantId: merchantId
-  }).then((data) => {
-    res.status(201).json(data)
+  }).then((transaction) => {
+    res.status(201).json({
+      checkoutUrl: `http://localhost:3000/process/${transaction.id}`
+    })
   })
     .catch((error) => {
       handleValidationError(res, error);
@@ -57,7 +59,8 @@ router.get("/:id", (req, res) => {
 
 // payment process
 router.post("/:id/payment", async (req, res) => {
-  const {creditCardInfo, amount} = req.body;
+  const {amount, validUrl} = req.body;
+  const creditCardInfo = {...req.body};
   const transaction = await Transaction.findByPk(req.params.id)
   if (transaction.status === 'paid') { return res.status(500).send('Transaction already paid')}
   const operation = await Operation.create({
@@ -73,10 +76,10 @@ router.post("/:id/payment", async (req, res) => {
       transaction.status = 'paid';
       await transaction.save();
     }
-    return res.sendStatus(200);
+    return res.redirect(validUrl);
   }).catch(err => {
     console.error(err);
-    res.sendStatus(500);
+    return res.render('error');
   })
 })
 
@@ -110,11 +113,12 @@ router.post("/:id/refund", async (req, res) => {
 });
 
 router.post("/:id/cancel", async (req, res) => {
+  const {cancelUrl} = req.body;
   const transaction = await Transaction.findByPk(req.params.id);
   if (transaction.status === 'paid') { return res.sendStatus(403) }
   transaction.status = 'cancel';
   await transaction.save();
-  res.sendStatus(200);
+  res.redirect(cancelUrl);
 })
 
 module.exports = router;

@@ -10,6 +10,9 @@ app.set('view engine', 'mustache');
 app.set('views', __dirname+'/views');
 
 app.use(express.json());
+app.use(express.urlencoded())
+
+app.use('/assets', express.static(__dirname + '/assets'));
 
 RouterManager(app);
 

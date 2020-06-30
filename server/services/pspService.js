@@ -6,8 +6,9 @@ class PspService {
       {params: {
         amount,
         creditCardNumber: CCinfos.CCNumber,
-        expirationDate: CCinfos.expirationDate,
-        secureCode: CCinfos.secureCode
+        creditCardOwner: CCinfos.CCOwner,
+        expirationDate: CCinfos.CCExpirationDate,
+        secureCode: CCinfos.CCSecureCode
       }}
     );
   }
