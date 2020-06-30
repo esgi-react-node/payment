@@ -3,7 +3,6 @@ const Merchant = require("../Merchant");
 
 const denormalize = async (ModelPG, transactionID, operation) => {
   // Delete in mongo
-  console.log(transactionID);
   await TransactionMongo.deleteOne({ id: transactionID });
 
   if (operation !== "delete") {
@@ -16,7 +15,6 @@ const denormalize = async (ModelPG, transactionID, operation) => {
     });
 
     // Save in mongo
-    
     const mTransaction = new TransactionMongo(dTransaction.toJSON());
     
     await mTransaction.save();
