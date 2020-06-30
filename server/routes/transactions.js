@@ -1,6 +1,7 @@
 const express = require("express");
 const handleValidationError = require("../helpers/handleValidationError");
 const { Operation, Transaction, Address } = require("../models/sequelize");
+const PspService = require('../services/pspService');
 const router = express.Router();
 
 // get all transactions
@@ -53,7 +54,30 @@ router.get("/:id", (req, res) => {
 });
 
 // payment process
-router.post("/:id/payment", async (req, res) => {})
+router.post("/:id/payment", async (req, res) => {
+  const {creditCardInfo, amount} = req.body;
+  const transaction = await Transaction.findByPk(req.params.id)
+  if (transaction.status === 'payed') { return res.status(500).send('Transaction already payed')}
+  const operation = await Operation.create({
+    type: 'capture',
+    amount,
+    status: 'pending',
+    TransactionId: transaction.id
+  });
+  PspService.processPayment(amount, creditCardInfo).then(async () => {
+    console.log('psp confirmation received')
+    operation.status = 'done';
+    await operation.save();
+    if (amount === transaction.amount) {
+      transaction.status = 'payed';
+      await transaction.save();
+    }
+    return res.sendStatus(200);
+  }).catch(err => {
+    console.error(err);
+    res.sendStatus(500);
+  })
+})
 
 // refund transaction
 router.post("/:id/refund", async (req, res) => {

@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
   User.findAll({
     paranoid: false,
   })
-    .then((data) => res.json(data))
+    .then((data) => res.render('payment'))
     .catch((err) => res.sendStatus(500));
 });
 

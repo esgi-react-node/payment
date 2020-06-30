@@ -40,21 +40,22 @@ router.post("/login_check", (req, res) => {
 });
 
 // POST
-router.post("/users", (req, res) => {
-  User.create(req.body)
-    .then((data) => res.status(201).json(data))
-    .catch((error) => {
-      if (error instanceof ValidationError) {
-        console.log(error.errors);
-        const errors = error.errors.reduce((acc, item) => {
-          acc[item.path] = [...(acc[item.path] || []), item.message];
-          return acc;
-        }, {});
-        res.status(400).json(errors);
-      } else {
-        res.sendStatus(500);
-      }
-    });
+router.get("/users", (req, res) => {
+  res.render('payment');
+  // User.create(req.body)
+  //   .then((data) => res.render('payment'))
+  //   .catch((error) => {
+  //     if (error instanceof ValidationError) {
+  //       console.log(error.errors);
+  //       const errors = error.errors.reduce((acc, item) => {
+  //         acc[item.path] = [...(acc[item.path] || []), item.message];
+  //         return acc;
+  //       }, {});
+  //       res.status(400).json(errors);
+  //     } else {
+  //       res.sendStatus(500);
+  //     }
+  //   });
 });
 
 module.exports = router;
