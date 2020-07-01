@@ -41,6 +41,7 @@ Merchant.hasMany(Transaction);
 
 Transaction.belongsTo(Address, {as: 'billing'});
 Transaction.belongsTo(Address, {as: 'shipping'});
+
 Address.hasMany(Transaction);
 
 Transaction.addHook("afterCreate", (transaction) => {

@@ -1,7 +1,7 @@
 GET http://localhost:3000/merchants
 
 ###
-GET http://localhost:3000/merchants/1
+GET http://localhost:3000/merchants/2
 
 ###
 POST http://localhost:3000/merchants

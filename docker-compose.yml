@@ -16,7 +16,9 @@ services:
     volumes:
       - ./SampleCollections:/usr/local/sampleCollections
     working_dir: /usr/local/sampleCollections
-
+    networks:
+      - node-react
+      
   db:
     image: postgres
     environment:
