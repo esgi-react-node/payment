@@ -24,10 +24,10 @@ User.init(
     lastname: {
       type: DataTypes.STRING,
     },
-    confirmed: {
-      type: DataTypes.BOOLEAN,
+    role: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: false,
+      defaultValue: 'user'
     },
   },
   {

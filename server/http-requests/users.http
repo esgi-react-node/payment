@@ -3,8 +3,8 @@ POST http://localhost:3000/login_check
 Content-Type: application/json
 
 {
-    "username":"kmarques@vetixy7.fr",
-    "password": "test"
+  "username": "fake@email.fake",
+  "password": "test"
 }
 
 
@@ -17,7 +17,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "username": "kmarques@vetixy7.fr",
+  "username": "fake@email.fake",
   "password": "test"
 }
 
@@ -29,7 +29,7 @@ PUT http://localhost:3000/users/1
 Content-Type: application/json
 
 {
-  "username": "kmarques@vetixy.com",
+  "username": "fake@email.fake",
   "password": "test"
 }
 
