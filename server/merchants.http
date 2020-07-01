@@ -1,0 +1,29 @@
+GET http://localhost:3000/merchants
+
+###
+GET http://localhost:3000/merchants/1
+
+###
+POST http://localhost:3000/merchants
+Content-Type: application/json
+
+{
+  "name": "marchant",
+  "KBISUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "currency": "EUR",
+  "confirmUrl": "http://localhost:3004/orders/confirmation",
+  "cancelUrl": "http://localhost:3004/orders/cancel",
+  "contactName": "Marcel Patoulachi",
+  "email": "fake@email.fake",
+  "phoneNumber": "0100000000",
+  "address": {
+    "fullName": "Marcel Patoulachi",
+    "address": "place de la tour Eiffel",
+    "town": "Paris",
+    "zip": "75001",
+    "country": "France"
+  }
+}
+
+###
+PUT http://localhost:3000/merchants/4/validate
