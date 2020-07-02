@@ -13,14 +13,14 @@ const denormalize = async (ModelPG, transactionID, operation) => {
       where: { id: transactionID },
       include: [
         Merchant,
-        { model: Address, as: "Billing" },
-        { model: Address, as: "Shipping" },
+        { model: Address, as: "billing" },
+        { model: Address, as: "shipping" },
       ],
     });
     console.log(dtransaction);
     // Save in mongo
     const mTransaction = new TransactionMongo(dtransaction.toJSON());
-    console.log(mTransaction);
+
     await mTransaction.save();
   }
 };

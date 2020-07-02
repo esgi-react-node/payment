@@ -1,5 +1,4 @@
 const denormalize = require("./denormalizationTransaction");
-const Address = require("../Address");
 const Merchant = require("../Merchant");
 const Transaction = require("../Transaction");
 

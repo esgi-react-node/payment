@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const db = require("../lib/db");
 
 const Schema = new mongoose.Schema(
   {
@@ -9,8 +10,8 @@ const Schema = new mongoose.Schema(
     tag: String,
     status: String,
     Merchant:Object,
-    Billing:Object,
-    Shipping:Object
+    billing:Object,
+    shipping:Object
   },
   {
     collection: "Transactions",
