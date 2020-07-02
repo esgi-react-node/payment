@@ -49,6 +49,14 @@ Merchant.init(
     credit: {
       type: DataTypes.FLOAT,
       allowNull: false,
+    },
+    token: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    secret: {
+      type: DataTypes.STRING,
+      unique: true
     }
   },
   {

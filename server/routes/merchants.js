@@ -1,6 +1,7 @@
 const express = require("express");
 const handleValidationError = require("../helpers/handleValidationError");
 const { Merchant, Address, Transaction, Operation } = require("../models/sequelize");
+const { generateCredentials } = require("../lib/credentials");
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -73,11 +74,34 @@ router.put("/:id/validate", async (req, res) => {
 })
 
 router.get("/:id/credentials", async (req, res) => {
-  // Generate credentials
+  const merchant = await Merchant.findByPk(req.params.id);
+  if (!merchant) { return res.sendStatus(404) }
+  if (!req.user.isAdmin() && !merchant.isOwner(req.user)) { return res.sendStatus(403) }
+
+  const {token, secret} = generateCredentials();
+  merchant.token = token;
+  merchant.secret = secret;
+  merchant.save()
+    .then(merchant => res.json({token, secret}))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    })
 })
 
 router.delete("/:id/credentials", async (req,res) => {
-  // revoke credentials
+  const merchant = await Merchant.findByPk(req.params.id);
+  if (!merchant) { return res.sendStatus(404) }
+  if (!req.user.isAdmin() && !merchant.isOwner(req.user)) { return res.sendStatus(403) }
+
+  merchant.token = null;
+  merchant.secret = null;
+  merchant.save()
+    .then(merchant => res.json(merchant))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    })
 })
 
 router.get("/:id/transactions", async (req, res) => {
