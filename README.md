@@ -67,6 +67,9 @@ Example of data to send :
 Delete user : `DELETE /users/:1`
 
 ### Merchant
+Request result will vary over the user role, variations are detailed for each calls.
+User role is retreived throught authentication.
+
 Merchant model :
 ```
 {
@@ -131,6 +134,9 @@ Update possible only if admin or owner
   "currency": "USD"
 }
 ```
+
+Get merchant transactions : `GET /merchants/:id/transactions`
+Only admin and owner will have a result
 
 ### Transaction
 Transaction model :
