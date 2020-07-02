@@ -1,4 +1,4 @@
 start:
-	docker-compose up -d db server adminer
+	docker-compose up -d db server adminer mongo
 stop:
 	docker-compose stop
