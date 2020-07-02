@@ -94,8 +94,13 @@ Merchant model :
 ```
 
 Get all merchant : `GET /merchants`
+if the user is admin, every merchant on the plateform will be returned. Else, only user's merchants will be returned.
+
 
 Get a single merchant : `GET /merchants/:id`
+Admin can get any merchant
+User can only get merchant if he's the owner
+
 
 Add a merchant : `POST /merchants`
 ```
@@ -119,6 +124,7 @@ Add a merchant : `POST /merchants`
 ```
 
 Update a merchant : `PUT /merchants/:id`
+Update possible only if admin or owner
 ```
 {
   "name": "marchant2",

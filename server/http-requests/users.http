@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImttYXJxdWVzQHZldGl4eS5mciIsImlhdCI6MTU5MjI5NTA0OSwiZXhwIjoxNTkyMjk4NjQ5fQ.iWCeclbL98Y8CyNIBxY6Aphvs52pdXd70ipoTsyKk24
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2VAZW1haWwuZmFrZSIsImlhdCI6MTU5MzY3Mzk2MCwiZXhwIjoxNTkzNjc3NTYwfQ.RPvZxcn1D9e5UOT5Zsn6SKGHfSSKZuCGH6UKC7C3MAQ
 
 ###
 POST http://localhost:3000/users
@@ -18,7 +18,8 @@ Content-Type: application/json
 
 {
   "username": "fake@email.fake",
-  "password": "test"
+  "password": "test",
+  "role": "admin"
 }
 
 ###

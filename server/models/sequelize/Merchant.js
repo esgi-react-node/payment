@@ -1,8 +1,13 @@
 const sequelize = require("../../lib/sequelize");
 const { DataTypes, Model } = require("sequelize");
 const Address = require("./Address");
+const User = require("./User");
 
-class Merchant extends Model {}
+class Merchant extends Model {
+  isOwner(user) {
+    return this.UserId === user.id;
+  }
+}
 Merchant.init(
   {
     name: {
@@ -55,5 +60,8 @@ Merchant.init(
 
 Address.belongsTo(Merchant);
 Merchant.hasOne(Address);
+
+Merchant.belongsTo(User);
+User.hasMany(Merchant);
 
 module.exports = Merchant;

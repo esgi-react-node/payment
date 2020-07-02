@@ -44,7 +44,7 @@ router.post("/login_check", (req, res) => {
 router.post("/users", (req, res) => {
   User.create(req.body)
     .then((user) => res.status(201).json(user))
-    .catch((error) => handleValidationError(error, res));
+    .catch((err) => handleValidationError(res, err));
 });
 
 module.exports = router;

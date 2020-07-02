@@ -3,7 +3,11 @@ const { DataTypes, Model } = require("sequelize");
 const bcrypt = require("bcryptjs");
 
 // Generation du model
-class User extends Model {}
+class User extends Model {
+  isAdmin() {
+    return this.role === 'admin';
+  }
+}
 User.init(
   {
     username: {
