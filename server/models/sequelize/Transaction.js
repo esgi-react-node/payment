@@ -22,9 +22,12 @@ Transaction.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    tag: {
-      type: DataTypes.STRING,
+    orderId: {
+      type: DataTypes.INTEGER,
       allowNull: false
+    },
+    tag: {
+      type: DataTypes.STRING
     },
     status: {
       type: DataTypes.STRING,

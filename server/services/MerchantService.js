@@ -13,12 +13,12 @@ class MerchantService {
 
   static async confirmTransaction(transaction) {
     let merchant = await this._getMerchant(transaction);
-    Axios.post(`${merchant.confirmUrl}/${transaction.id}`).catch(console.error);
+    Axios.post(`${merchant.confirmUrl}/${transaction.orderId}`).catch(console.error);
   }
 
   static async cancelTransaction(transaction) {
     let merchant = await this._getMerchant(transaction);
-    Axios.post(`${merchant.cancelUrl}/${transaction.id}`).catch(console.error);
+    Axios.post(`${merchant.cancelUrl}/${transaction.orderId}`).catch(console.error);
   }
 }
 

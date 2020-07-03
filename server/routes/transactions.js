@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
 // create a transaction
 router.post("/", async (req, res) => {
   if (!req.merchant) { return res.sendStatus(403) }
-  const {customerId, tag, billing, shipping, cart, amount} = req.body;
+  const {customerId, orderId, tag, billing, shipping, cart, amount} = req.body;
   const billingAddress = await Address.create(billing);
   const shippingAddress = await Address.create(shipping);
   Transaction.create({
@@ -41,12 +41,14 @@ router.post("/", async (req, res) => {
     billingId: billingAddress.id,
     shippingId: shippingAddress.id,
     cart,
+    orderId,
     tag,
     amount,
     status: 'created',
     MerchantId: req.merchant.id
   }).then((transaction) => {
     res.status(201).json({
+      transaction,
       checkoutUrl: `http://localhost:3000/process/${transaction.id}`
     })
   })
