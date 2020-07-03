@@ -3,7 +3,11 @@ const { DataTypes, Model } = require("sequelize");
 const Merchant = require("./Merchant");
 const Address = require("./Address");
 
-class Transaction extends Model {}
+class Transaction extends Model {
+  isOwner(merchant) {
+    return this.MerchantId === merchant.id;
+  }
+}
 Transaction.init(
   {
     amount: {

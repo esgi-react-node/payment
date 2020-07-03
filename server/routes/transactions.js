@@ -5,18 +5,35 @@ const PspService = require('../services/pspService');
 const MerchantService = require('../services/MerchantService');
 const router = express.Router();
 
+const notMerchantOrAdmin = (req) => {
+  return (!req.user || !req.user.isAdmin()) && !req.merchant;
+}
+
 // get all transactions
 router.get("/", (req, res) => {
-  Transaction.findAll({
-    paranoid: false
-  })
+  if(notMerchantOrAdmin(req)) {
+    return res.sendStatus(403);
+  }
+  const options = {
+    paranoid: true,
+    include: [{model: Operation}]
+  }
+
+  if(req.merchant) {
+    options.where = { MerchantId: req.merchant.id }
+  }
+  return Transaction.findAll(options)
     .then((data) => res.json(data))
-    .catch((err) => res.sendStatus(500));
+    .catch((err) => {
+      console.error(err);
+      return res.sendStatus(500);
+    });
 });
 
 // create a transaction
 router.post("/", async (req, res) => {
-  const {customerId, tag, billing, shipping, cart, amount, merchantId} = req.body;
+  if (!req.merchant) { return res.sendStatus(403) }
+  const {customerId, tag, billing, shipping, cart, amount} = req.body;
   const billingAddress = await Address.create(billing);
   const shippingAddress = await Address.create(shipping);
   Transaction.create({
@@ -27,7 +44,7 @@ router.post("/", async (req, res) => {
     tag,
     amount,
     status: 'created',
-    MerchantId: merchantId
+    MerchantId: req.merchant.id
   }).then((transaction) => {
     res.status(201).json({
       checkoutUrl: `http://localhost:3000/process/${transaction.id}`
@@ -40,7 +57,10 @@ router.post("/", async (req, res) => {
 
 // get single transaction
 router.get("/:id", (req, res) => {
-  Transaction.findByPk(req.params.id, {
+  if (notMerchantOrAdmin(req)) {
+    return res.sendStatus(403);
+  }
+  return Transaction.findByPk(req.params.id, {
     include: [{
       model: Operation
     }, {
@@ -51,8 +71,13 @@ router.get("/:id", (req, res) => {
       as: 'shipping'
     }]
   })
-    .then((data) => (data ? res.json(data) : res.sendStatus(404)))
-    .catch((err) => {
+    .then(transaction => {
+      if (req.merchant && !transaction.isOwner(req.merchant)) {
+        return res.sendStatus(403);
+      }
+      return transaction ? res.json(transaction) : res.sendStatus(404)
+    })
+    .catch(err => {
       console.error(err);
       res.sendStatus(500);
     });
@@ -85,7 +110,12 @@ router.post("/:id/refund", async (req, res) => {
       model: Operation
     }]
   });
-  const payinOperation = transaction.Operations.find(op => op.type === 'payin');
+
+  if (!req.merchant || !transaction.isOwner(req.merchant)) {
+    return res.sendStatus(403);
+  }
+
+  const payinOperation = transaction.Operations.find(op => op.type === 'capture');
   const refundOperations = transaction.Operations.filter(op => op.type === 'refund');
   const refundedAmount = refundOperations.reduce((acc, el) => acc += el.amount, 0);
   const leftToRefund = payinOperation.amount - refundedAmount;

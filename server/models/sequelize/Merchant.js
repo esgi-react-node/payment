@@ -1,11 +1,19 @@
 const sequelize = require("../../lib/sequelize");
 const { DataTypes, Model } = require("sequelize");
+const { generateCredentials } = require('../../lib/credentials');
 const Address = require("./Address");
 const User = require("./User");
 
 class Merchant extends Model {
   isOwner(user) {
     return this.UserId === user.id;
+  }
+
+  generateCredentials() {
+    const {token, secret} = generateCredentials();
+    this.token = token;
+    this.secret = secret;
+    return this.save();
   }
 }
 Merchant.init(

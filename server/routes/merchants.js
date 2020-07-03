@@ -1,7 +1,7 @@
 const express = require("express");
 const handleValidationError = require("../helpers/handleValidationError");
+const {merchantAccessFilterOwnerOrAdmin, merchantAccessFilterAdmin} = require("../helpers/merchantAccessFilter");
 const { Merchant, Address, Transaction, Operation } = require("../models/sequelize");
-const { generateCredentials } = require("../lib/credentials");
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -21,22 +21,10 @@ router.get('/', (req, res) => {
     });
 })
 
-router.get("/:id", (req,res) => {
-  Merchant.findByPk(req.params.id)
-    .then(merchant => {
-      if (!merchant) {
-        return res.sendStatus(404);
-      }
-      if (req.user.isAdmin() || merchant.isOwner(req.user)) {
-        return res.json(merchant);
-      }
-      return res.sendStatus(403);
-    })
-    .catch(err => {
-      console.error(err);
-      return res.sendStatus(500);
-    });
-})
+router.get("/:id", async (req,res) => {
+  const merchant = await merchantAccessFilterOwnerOrAdmin(req,res);
+  return res.json(merchant);
+});
 
 router.post('/', (req, res) => {
   const merchantData = {...req.body};
@@ -61,11 +49,10 @@ router.post('/', (req, res) => {
 })
 
 router.put("/:id/validate", async (req, res) => {
-  const merchant = await Merchant.findByPk(req.params.id);
-  if (!merchant) { return res.sendStatus(404) }
+  const merchant = await merchantAccessFilterAdmin(req,res);
 
   merchant.status = 'validated';
-  merchant.save()
+  merchant.generateCredentials()
     .then(merchant => res.status(200).send(merchant))
     .catch(err => {
       console.error(err);
@@ -74,15 +61,10 @@ router.put("/:id/validate", async (req, res) => {
 })
 
 router.get("/:id/credentials", async (req, res) => {
-  const merchant = await Merchant.findByPk(req.params.id);
-  if (!merchant) { return res.sendStatus(404) }
-  if (!req.user.isAdmin() && !merchant.isOwner(req.user)) { return res.sendStatus(403) }
+  const merchant = await merchantAccessFilterOwnerOrAdmin(req,res);
 
-  const {token, secret} = generateCredentials();
-  merchant.token = token;
-  merchant.secret = secret;
-  merchant.save()
-    .then(merchant => res.json({token, secret}))
+  merchant.generateCredentials()
+    .then(merchant => res.json({token : merchant.token, secret: merchant.secret}))
     .catch(err => {
       console.error(err);
       res.sendStatus(500);
@@ -90,9 +72,7 @@ router.get("/:id/credentials", async (req, res) => {
 })
 
 router.delete("/:id/credentials", async (req,res) => {
-  const merchant = await Merchant.findByPk(req.params.id);
-  if (!merchant) { return res.sendStatus(404) }
-  if (!req.user.isAdmin() && !merchant.isOwner(req.user)) { return res.sendStatus(403) }
+  const merchant = await merchantAccessFilterOwnerOrAdmin(req,res);
 
   merchant.token = null;
   merchant.secret = null;
@@ -105,9 +85,7 @@ router.delete("/:id/credentials", async (req,res) => {
 })
 
 router.get("/:id/transactions", async (req, res) => {
-  const merchant = await Merchant.findByPk(req.params.id);
-  if (!merchant) { return res.sendStatus(404) }
-  if (!req.user.isAdmin() && !merchant.isOwner(req.user)) { return res.sendStatus(403) }
+  const merchant = await merchantAccessFilterOwnerOrAdmin(req,res);
 
   return Transaction.findAll({
     where: {MerchantId: merchant.id},

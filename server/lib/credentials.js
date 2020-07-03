@@ -9,6 +9,12 @@ const generateCredentials = () => {
   }
 }
 
+const extractCredentials = (header) => {
+  const [token, secret] = Buffer.from(header, 'base64').toString('ascii').split(':');
+  return {token, secret};
+}
+
 module.exports ={
-  generateCredentials
+  generateCredentials,
+  extractCredentials
 }
