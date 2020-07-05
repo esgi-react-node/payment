@@ -7,11 +7,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha
 
 ###
 POST http://localhost:3000/merchants
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2VAZW1haWwuZmFrZSIsImlhdCI6MTU5Mzk2OTcwOCwiZXhwIjoxNTkzOTczMzA4fQ.YZIAf0lTSM51llFIjrBI0rRzEVLdaZ-uTndiycXEXSE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2UyQGVtYWlsLmZha2UiLCJpYXQiOjE1OTM5Njk5ODYsImV4cCI6MTU5Mzk3MzU4Nn0.vXE_3x3ykUXQ0xAnLh56m2AMsziLgzRdHR0bz7BqZAc
 Content-Type: application/json
 
 {
-  "name": "marchant",
+  "name": "michel",
   "KBISUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   "currency": "EUR",
   "confirmUrl": "http://localhost:3004/orders/confirmation",
