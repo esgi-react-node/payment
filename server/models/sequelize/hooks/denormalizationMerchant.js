@@ -1,4 +1,4 @@
-const MerchantMongo = require("../../Merchant");
+const MerchantMongo = require("../../mongoose/Merchant");
 
 const denormalizeMerchant = async (ModelPG, merchantID, operation) => {
   // Delete in mongo
@@ -6,15 +6,16 @@ const denormalizeMerchant = async (ModelPG, merchantID, operation) => {
 
   if (operation !== "delete") {
     // Get User with association in DB if not delete
-    const dMerchant = await ModelPG.findOne({
+    const dbMerchant = await ModelPG.findOne({
       where: { id: merchantID },
       include: [
         {all: true}
       ],
     });
+
     // Save in mongo
-    const mMerchant = new MerchantMongo(dMerchant.toJSON());
-    await mMerchant.save();
+    const mongoMerchant = new MerchantMongo(dbMerchant.toJSON());
+    await mongoMerchant.save();
   }
 };
 

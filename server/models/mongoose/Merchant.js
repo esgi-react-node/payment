@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const db = require("../lib/db");
 
 const Schema = new mongoose.Schema(
   {

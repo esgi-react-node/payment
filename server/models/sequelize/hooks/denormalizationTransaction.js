@@ -1,4 +1,4 @@
-const TransactionMongo = require("../../Transaction");
+const TransactionMongo = require("../../mongoose/Transaction");
 const Merchant = require("../Merchant");
 const Address = require("../Address");
 

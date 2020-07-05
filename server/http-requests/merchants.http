@@ -7,7 +7,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha
 
 ###
 POST http://localhost:3000/merchants
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2UyQGVtYWlsLmZha2UiLCJpYXQiOjE1OTM5Njk5ODYsImV4cCI6MTU5Mzk3MzU4Nn0.vXE_3x3ykUXQ0xAnLh56m2AMsziLgzRdHR0bz7BqZAc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2VAZW1haWwuZmFrZSIsImlhdCI6MTU5Mzk3NjE5OSwiZXhwIjoxNTkzOTc5Nzk5fQ.zZEM9OzBI1K-cUKrWijUFmWekMpIHQChr5lZpb6P3nU
 Content-Type: application/json
 
 {
@@ -29,8 +29,8 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/merchants/10/validate
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2VAZW1haWwuZmFrZSIsImlhdCI6MTU5MzcwMTYyMywiZXhwIjoxNTkzNzA1MjIzfQ.lw7DsOO-x_skZSLCMjm0lVCJTuoANLoOAn3Uxf88mvI
+PUT http://localhost:3000/merchants/19/validate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2VAZW1haWwuZmFrZSIsImlhdCI6MTU5Mzk3NjE5OSwiZXhwIjoxNTkzOTc5Nzk5fQ.zZEM9OzBI1K-cUKrWijUFmWekMpIHQChr5lZpb6P3nU
 
 ###
 GET http://localhost:3000/merchants/10/transactions
