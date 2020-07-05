@@ -14,7 +14,10 @@ const Schema = new mongoose.Schema(
     cancelUrl: String,
     status: String,
     credit: String,
+    token: String,
+    secret: String,
     Address:Object,
+    User:Object,
     createdAt:Date,
     updatedAt:Date,
     deletedAt:Date

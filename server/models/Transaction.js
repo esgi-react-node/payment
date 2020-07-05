@@ -7,6 +7,7 @@ const Schema = new mongoose.Schema(
     amount: String,
     cart: Object,
     customerId: String,
+    orderId: Number,
     tag: String,
     status: String,
     Merchant:Object,
