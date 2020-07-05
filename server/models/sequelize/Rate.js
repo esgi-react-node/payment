@@ -1,5 +1,6 @@
 const sequelize = require("../../lib/sequelize");
 const { DataTypes, Model } = require("sequelize");
+const denormalizeOperation = require("./hooks/denormalizationTransaction");
 
 // Generation du model
 class Rate extends Model {}

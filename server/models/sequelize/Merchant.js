@@ -3,6 +3,7 @@ const { DataTypes, Model } = require("sequelize");
 const { generateCredentials } = require('../../lib/credentials');
 const Address = require("./Address");
 const User = require("./User");
+const denormalize = require("./hooks/denormalizationMerchant");
 
 class Merchant extends Model {
   isOwner(user) {
@@ -79,5 +80,15 @@ Merchant.hasOne(Address);
 
 Merchant.belongsTo(User);
 User.hasMany(Merchant);
+
+Merchant.addHook("afterCreate", (merchant) => {
+  denormalize(Merchant, merchant.id, "create").then(()=>{}).catch(console.error);
+});
+Merchant.addHook("afterUpdate", (merchant) => {
+  denormalize(Merchant, merchant.id, "update");
+});
+Merchant.addHook("afterDestroy", (merchant) => {
+  denormalize(Merchant, merchant.id, "delete");
+});
 
 module.exports = Merchant;

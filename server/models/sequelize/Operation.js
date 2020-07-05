@@ -32,5 +32,4 @@ Transaction.hasMany(Operation);
 Operation.belongsTo(Rate);
 Rate.hasMany(Operation);
 
-
 module.exports = Operation;

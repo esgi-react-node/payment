@@ -1,5 +1,6 @@
 const express = require("express");
 const { Currency } = require("./models/sequelize");
+const mongo = require("./lib/db");
 const RouterManager = require("./routes");
 const mustacheExpress = require('mustache-express');
 
