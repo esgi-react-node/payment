@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/transactions
-Authorization: Basic MTQxMmI4ZTMtNzhmNi00ZmY2LWJiNWItOGJjYzc1OWU2NGRhOmxjc2Ezemh1
+Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2VAZW1haWwuZmFrZSIsImlhdCI6MTU5Mzk2OTcwOCwiZXhwIjoxNTkzOTczMzA4fQ.YZIAf0lTSM51llFIjrBI0rRzEVLdaZ-uTndiycXEXSE
 Content-Type: application/json
 
 {

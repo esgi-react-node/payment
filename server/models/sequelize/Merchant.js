@@ -3,6 +3,7 @@ const { DataTypes, Model } = require("sequelize");
 const { generateCredentials } = require('../../lib/credentials');
 const Address = require("./Address");
 const User = require("./User");
+// const Transaction = require("./Transaction");
 const denormalize = require("./hooks/denormalizationMerchant");
 
 class Merchant extends Model {
