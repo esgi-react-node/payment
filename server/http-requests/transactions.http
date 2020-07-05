@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/transactions
-Authorization: Basic NTE2NzVmZTgtNzQ2OC00Y2U4LWJmMDEtZTcwYjY0ZTU0NzljOjMzeG0zbWR2
+Authorization: Basic NTM0NTBmNmItMjU5ZS00NGE5LWE1MTgtNTg0MjZlYmYyNWNkOnN5cXRiYWJx
 Content-Type: application/json
 
 {
@@ -53,8 +53,7 @@ Content-Type: application/json
     "town": "Paris",
     "zip": "75001",
     "country": "France"
-  },
-  "merchantId": 19
+  }
 }
 
 ###
@@ -68,4 +67,4 @@ GET http://localhost:3000/transactions
 Authorization: Basic MTQxMmI4ZTMtNzhmNi00ZmY2LWJiNWItOGJjYzc1OWU2NGRhOmxjc2Ezemh1
 
 ###
-PUT http://localhost:3000/transactions/31/confirm
+PUT http://localhost:3000/transactions/37/confirm

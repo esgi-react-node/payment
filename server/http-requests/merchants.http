@@ -14,8 +14,8 @@ Content-Type: application/json
   "name": "michel",
   "KBISUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   "currency": "EUR",
-  "confirmUrl": "http://localhost:3004/orders/confirmation",
-  "cancelUrl": "http://localhost:3004/orders/cancel",
+  "confirmUrl": "http://merchant-api:3000/orders/confirmation",
+  "cancelUrl": "http://merchant-api:3000/orders/cancel",
   "contactName": "Marcel Patoulachi",
   "email": "fake@email.fake",
   "phoneNumber": "0100000000",
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/merchants/19/validate
+PUT http://localhost:3000/merchants/20/validate
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2VAZW1haWwuZmFrZSIsImlhdCI6MTU5Mzk3NjE5OSwiZXhwIjoxNTkzOTc5Nzk5fQ.zZEM9OzBI1K-cUKrWijUFmWekMpIHQChr5lZpb6P3nU
 
 ###
