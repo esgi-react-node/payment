@@ -43,5 +43,4 @@ Operation.addHook("afterDestroy", (operation) => {
   denormalize(Operation, operation.id, "delete");
 });
 
-
 module.exports = Operation;

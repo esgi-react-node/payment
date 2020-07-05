@@ -7,11 +7,11 @@ const Schema = new mongoose.Schema(
     type: String,
     amout: Number,
     status: String,
+    Transaction:Object,
+    Rate:Object,
     createdAt:Date,
     updatedAt:Date,
-    deletedAt:Date,
-    Transaction:Object,
-    Rate:Object
+    deletedAt:Date
 
   },
   {
