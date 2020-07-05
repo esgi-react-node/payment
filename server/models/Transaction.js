@@ -9,6 +9,9 @@ const Schema = new mongoose.Schema(
     customerId: String,
     tag: String,
     status: String,
+    createdAt:Date,
+    updatedAt:Date,
+    deletedAt:Date,
     Merchant:Object,
     billing:Object,
     shipping:Object

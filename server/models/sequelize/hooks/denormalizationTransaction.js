@@ -4,7 +4,6 @@ const Address = require("../Address");
 
 const denormalize = async (ModelPG, transactionID, operation) => {
   // Delete in mongo
-  console.log(transactionID);
   await TransactionMongo.deleteOne({ id: transactionID });
 
   if (operation !== "delete") {
@@ -17,7 +16,6 @@ const denormalize = async (ModelPG, transactionID, operation) => {
         { model: Address, as: "shipping" },
       ],
     });
-    console.log(dtransaction);
     // Save in mongo
     const mTransaction = new TransactionMongo(dtransaction.toJSON());
 

@@ -1,5 +1,6 @@
 const sequelize = require("../../lib/sequelize");
 const { DataTypes, Model } = require("sequelize");
+const denormalize = require("./hooks/denormalizationOperation");
 const Transaction = require("./Transaction");
 const Rate = require('./Rate');
 
@@ -31,6 +32,16 @@ Transaction.hasMany(Operation);
 
 Operation.belongsTo(Rate);
 Rate.hasMany(Operation);
+
+Operation.addHook("afterCreate", (operation) => {
+  denormalize(Operation, operation.id, "create");
+});
+Operation.addHook("afterUpdate", (operation) => {
+  denormalize(Operation, operation.id, "update");
+});
+Operation.addHook("afterDestroy", (operation) => {
+  denormalize(Operation, operation.id, "delete");
+});
 
 
 module.exports = Operation;

@@ -2,7 +2,8 @@ const sequelize = require("../../lib/sequelize");
 const { DataTypes, Model } = require("sequelize");
 const Merchant = require("./Merchant");
 const Address = require("./Address");
-const denormalize = require("./hooks/denormalizationTransaction");
+const denormalizeOperation = require("./hooks/denormalizationOperation");
+const denormalizeTransaction = require("./hooks/denormalizationTransaction");
 
 class Transaction extends Model {
   isOwner(merchant) {
@@ -51,13 +52,25 @@ Transaction.belongsTo(Address, {as: 'shipping'});
 Address.hasMany(Transaction);
 
 Transaction.addHook("afterCreate", (transaction) => {
-  denormalize(Transaction, transaction.id, "create");
+  denormalizeTransaction(Transaction, transaction.id, "create");
 });
 Transaction.addHook("afterUpdate", (transaction) => {
-  denormalize(Transaction, transaction.id, "update");
+  denormalizeTransaction(Transaction, transaction.id, "update");
 });
 Transaction.addHook("afterDestroy", (transaction) => {
-  denormalize(Transaction, transaction.id, "delete");
+  denormalizeTransaction(Transaction, transaction.id, "delete");
 });
+
+Transaction.addHook("afterCreate", (transaction) => {
+  denormalizeOperation(Transaction, transaction.operation.id, "create");
+});
+Transaction.addHook("afterUpdate", (transaction) => {
+  denormalizeOperation(Transaction, transaction.operation.id, "update");
+});
+Transaction.addHook("afterDestroy", (transaction) => {
+  denormalizeOperation(Transaction, transaction.operation.id, "delete");
+});
+
+
 
 module.exports = Transaction;
