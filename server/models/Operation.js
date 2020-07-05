@@ -10,8 +10,8 @@ const Schema = new mongoose.Schema(
     createdAt:Date,
     updatedAt:Date,
     deletedAt:Date,
-    Transaction:Object,
-    Rate:Object
+    TransactionId:Object,
+    RateId:Object
 
   },
   {
