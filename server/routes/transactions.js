@@ -129,7 +129,7 @@ router.post("/:id/refund", async (req, res) => {
   Operation.create({
     type: 'refund',
     amount,
-    status: 'pending',
+    status: 'done',
     TransactionId: transaction.id
   }).then((data) => (data ? res.json(data) : res.sendStatus(404)))
     .catch((err) => {

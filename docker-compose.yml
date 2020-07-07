@@ -69,6 +69,7 @@ services:
       JWT_SECRET: "MyBestSecret"
     depends_on:
       - db
+      - mongo
     command: "npm start"
     networks:
       - node-react
