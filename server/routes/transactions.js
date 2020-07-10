@@ -1,6 +1,7 @@
 const express = require("express");
 const handleValidationError = require("../helpers/handleValidationError");
 const { Operation, Transaction, Address } = require("../models/sequelize");
+const TransactionMongo = require('../models/mongoose/Transaction');
 const PspService = require('../services/pspService');
 const MerchantService = require('../services/MerchantService');
 const router = express.Router();
@@ -29,6 +30,16 @@ router.get("/", (req, res) => {
       return res.sendStatus(500);
     });
 });
+
+router.get("/search", (req, res) => {
+  const searchParams = {...req.query};
+  TransactionMongo.find(searchParams)
+    .then(transactions => res.json(transactions))
+    .catch(err => {
+      console.error(err);
+      res.sendStatus(500);
+    })
+})
 
 // create a transaction
 router.post("/", async (req, res) => {

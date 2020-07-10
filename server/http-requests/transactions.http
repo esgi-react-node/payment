@@ -57,6 +57,10 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:3000/transactions/search?amount=1300
+Authorization: Basic NDZmN2MwZTgtNzUyYy00NDRkLTk4ZjEtNDE4NGRkMjQyOGI1OiBqdzR2enE3eQ==
+
+###
 GET http://localhost:3000/transactions/30
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZha2VAZW1haWwuZmFrZSIsImlhdCI6MTU5Mzc2Mzg2NSwiZXhwIjoxNTkzNzY3NDY1fQ.L_33mBuaOlUuEjHCFilH6Z2l-0JLUkkivPiwTCvJHjI
 Authorization: Basic MTQxMmI4ZTMtNzhmNi00ZmY2LWJiNWItOGJjYzc1OWU2NGRhOmxjc2Ezemh1
