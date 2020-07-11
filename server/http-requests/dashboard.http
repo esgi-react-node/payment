@@ -1,0 +1,3 @@
+###
+GET http://localhost:3000/dashboard/search
+Authorization: Basic YTA1Mjk5MTUtOTc1ZC00N2ZjLWFmMDktMzMwMjU2OTg5YTA4OmZ1aGlzMW8y
