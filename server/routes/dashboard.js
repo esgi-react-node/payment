@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
    const averageTransaction = await TransactionMongo.aggregate([
         {$group:{_id:null,countAmount:{$sum:1},avgAmount: {$avg:'$amount'}}}
     ]) 
-      .then(res.json(averageTransaction))
+      .then(avg => {res.json(avg)})
       .catch(err => {
         console.error(err);
         res.sendStatus(500);
