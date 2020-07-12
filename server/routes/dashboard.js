@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
     const averageAmountByMerchant = await TransactionMongo.aggregate([
       {$group:{_id:'$Merchant.name', avgAmountByMerchant:{$avg:'$amount'}}}
     ])
-    console.log(res.json({averageTransaction,countMerchant,averageTransactionByMerchant,averageAmountByMerchant}));
+    res.json({averageTransaction,countMerchant,averageTransactionByMerchant,averageAmountByMerchant});
   } catch(e){
     res.sendStatus(500);
   }
