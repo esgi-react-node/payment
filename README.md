@@ -233,3 +233,25 @@ Cancel transaction : `POST /transactions/:id/cancel/`
   "cancelUrl": "http://github.com" // Url to redirect user
 }
 ```
+### Dashboard
+Get all KPI : GET /dashboard
+averageTransaction :
+```
+{
+  [ { _id: null, countAmount: 2, avgAmount: 625 } ]
+}
+```
+countMerchant : 
+```
+ [ { _id: null, countMerchant: 1 } ]
+```
+averageTransactionByMerchant : 
+```
+[ { _id: 'marchant', countTransactionByMerchant: 2 } ]
+```
+averageAmountByMerchant : 
+```
+[ { _id: 'marchant', avgAmountByMerchant: 625 } ]
+```
+
+
