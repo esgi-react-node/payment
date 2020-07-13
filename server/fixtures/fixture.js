@@ -20,10 +20,6 @@ sequelize
         await MongoMerchant.remove();
         await MongoOperation.remove();
         await MongoTransaction.remove();
-        //DELETE SEQUELIZE MODELS
-        await Address.destroy({where:{},force:true});
-        await Merchant.destroy({where:{},force:true});
-        await User.destroy({where:{},force:true});
        
         //CREATE USER
         await User.create({
@@ -32,6 +28,22 @@ sequelize
             firstname:"John",
             lastname:"Doe",
             role: "admin"
+        });
+        //CREATE USER
+        await User.create({
+            username: "t.corio@gmail.com",
+            password: "test",
+            firstname:"Thomas",
+            lastname:"Corio",
+            role: "user"
+        });
+        //CREATE USER
+        await User.create({
+            username: "l.lavander@gmail.com",
+            password: "test",
+            firstname:"Lucas",
+            lastname:"Lavander",
+            role: "user"
         });
         // CREATE MERCHANT
         await Merchant.create({
