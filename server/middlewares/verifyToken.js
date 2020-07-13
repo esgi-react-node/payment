@@ -6,11 +6,11 @@ const verifyToken = (req, res, next) => {
   if(excludedRoutes.some(link => req.path.match(link))) { return next(); }
 
   let authHeader = req.get("Authorization");
-  const [headerAuthType, headerToken] = authHeader.split(' ');
   if (!authHeader || !['Bearer', 'Basic'].includes(headerAuthType)) {
     res.sendStatus(401);
     return;
   }
+  const [headerAuthType, headerToken] = authHeader.split(' ');
 
   // User Authorization
   if (headerAuthType === 'Bearer') {
