@@ -324,17 +324,17 @@
       <div class='order-info'>
         <div class='order-info-content'>
           <h2>Order Summary</h2>
+          {{#cart}}
           <div class='line'></div>
           <div class='order-element'>
             <div class="order-element__information">
-              <span class='thin'>Nike</span> <br>
-              Free Run 3.0 Women<br>
-              <span class='thin small'> Color: Grey/Orange, Size: 10.5</span>
+              <span class='thin'> {{label}} </span>
             </div>
             <div class="order-element__price">
-              <div class='price'>$99.95</div>
+              <div class='price'>{{quantity}} x {{price}}€</div>
             </div>
           </div>
+          {{/cart}}
           <div class='line'></div>
           <div class='total'>
             <span style='float:left;'>

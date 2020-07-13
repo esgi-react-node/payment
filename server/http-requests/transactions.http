@@ -28,18 +28,27 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/transactions
-Authorization: Basic 8e3d9445-09ef-43ca-9b7a-c0f523d81b29:62nqfpyh
+Authorization: Basic NDZmN2MwZTgtNzUyYy00NDRkLTk4ZjEtNDE4NGRkMjQyOGI1Omp3NHZ6cTd5
 Content-Type: application/json
 
 {
   "customerId": "1",
-  "tag": "orderId: 12341234",
   "orderId": "3",
-  "cart": {
-    "patrick": 2,
-    "michel": 3
-  },
-  "amount": 200,
+  "cart": [
+    {
+      "id": "1",
+      "label": "Macbook Pro 16 pouces",
+      "price": 270000,
+      "quantity": 2
+    },
+    {
+      "id": "2",
+      "label": "Macbook Pro 13 pouces",
+      "price": 230000,
+      "quantity": 4
+    }
+  ],
+  "amount": 1460000,
   "billing": {
     "fullName": "Marcel Patoulachi",
     "address": "place de la tour Eiffel",
