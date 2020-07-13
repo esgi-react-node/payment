@@ -20,10 +20,6 @@ sequelize
         await MongoMerchant.remove();
         await MongoOperation.remove();
         await MongoTransaction.remove();
-        //DELETE SEQUELIZE MODELS
-        await Address.destroy({where:{},force:true});
-        await Merchant.destroy({where:{},force:true});
-        await User.destroy({where:{},force:true});
        
         //CREATE USER
         await User.create({
