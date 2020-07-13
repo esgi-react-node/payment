@@ -29,6 +29,22 @@ sequelize
             lastname:"Doe",
             role: "admin"
         });
+        //CREATE USER
+        await User.create({
+            username: "t.corio@gmail.com",
+            password: "test",
+            firstname:"Thomas",
+            lastname:"Corio",
+            role: "user"
+        });
+        //CREATE USER
+        await User.create({
+            username: "l.lavander@gmail.com",
+            password: "test",
+            firstname:"Lucas",
+            lastname:"Lavander",
+            role: "user"
+        });
         // CREATE MERCHANT
         await Merchant.create({
             name: "John Insdustry",
