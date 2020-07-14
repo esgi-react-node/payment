@@ -256,13 +256,23 @@ averageAmountByMerchant :
 ### Fixture
 User Login Admin :
 ```
-email : john.doe@gmail.com
-password: test
+email: "john.doe@gmail.com",
+password: "abcABC123!@#"
 ```
 User Login :
+email: "a.nairi@test.com",
+password: "abcABC123!@#"
 ```
-email: t.corio@gmail.com
-password : test
+email: "q.hermiteau@test.com",
+password: "abcABC123!@#"
+```
+```
+email: "a.oussaidi@test.com",
+password: "abcABC123!@#"
+```
+```
+email: "q.hermiteau@test.com",
+password: "abcABC123!@#"
 ```
 
 
