@@ -11,7 +11,6 @@ const MongoMerchant = require('../models/mongoose/Merchant');
 const MongoOperation = require('../models/mongoose/Operation');
 const MongoTransaction = require('../models/mongoose/Transaction');
 
-
 sequelize
   .sync({ force: true})
   .then(
@@ -22,7 +21,7 @@ sequelize
         await MongoTransaction.remove();
        
         //CREATE USER
-        await User.create({
+        const UserAdmin = await User.create({
             username: "john.doe@gmail.com",
             password: "test",
             firstname:"John",
@@ -30,7 +29,7 @@ sequelize
             role: "admin"
         });
         //CREATE USER
-        await User.create({
+        const UserOne = await User.create({
             username: "t.corio@gmail.com",
             password: "test",
             firstname:"Thomas",
@@ -46,7 +45,7 @@ sequelize
             role: "user"
         });
         // CREATE MERCHANT
-        await Merchant.create({
+        const MerchantPG = await Merchant.create({
             name: "John Insdustry",
             KBISUrl: "451 962 587 00010",
             currency: "EUR",
@@ -57,7 +56,7 @@ sequelize
             phoneNumber: "0652130101",
             status:"pending",
             credit:0,
-            UserId: 1
+            UserId: UserAdmin.id
         });
         // FOREIGN KEYS MERCHANT
         await Address.create({
@@ -66,24 +65,24 @@ sequelize
             town: "Paris",
             zip: "75001",
             country: "France",
-            MerchantId:1   
+            MerchantId:MerchantPG.id   
         })
         // CREATE TRANSACTION
-        await Address.create({
+        const AddressBillingUserOne = await Address.create({
             fullName: "Thomas Corio",
             address: "100 AVE FRANCOIS MITTERRAND",
             town: "ATHIS MONS",
             zip: "91200",
             country: "France",
-            MerchantId:1  
+            MerchantId:MerchantPG.id
         })
-        await Address.create({
+        const AddressShippingUserOne = await Address.create({
             fullName: "Thomas Corio",
             address: "100 AVE FRANCOIS MITTERRAND",
             town: "ATHIS MONS",
             zip: "91200",
             country: "France",
-            MerchantId:1  
+            MerchantId: MerchantPG.id
         })
         await Transaction.create({
             customerId: 2,
@@ -95,26 +94,26 @@ sequelize
             },
             amount: 200,
             status:"created",
-            billingId: 2,
-            shippingId:3,
-            MerchantId:1
+            billingId: AddressBillingUserOne.id,
+            shippingId:AddressShippingUserOne.id,
+            MerchantId:MerchantPG.id
         })
         // CREATE TRANSACTION
-        await Address.create({
+        const AddressBillingUserTwo = await Address.create({
             fullName: "Lucas Lavander",
             address: "9 RUE DE LA CHEMINEE BLANCHE",
             town: "VERT LE PETIT",
             zip: "91710",
             country: "France",
-            MerchantId:1    
+            MerchantId:MerchantPG.id    
         })
-        await Address.create({
+        const AddressShippingUserTwo = await Address.create({
             fullName: "Lucas Lavander",
             address: "9 RUE DE LA CHEMINEE BLANCHE",
             town: "VERT LE PETIT",
             zip: "91710",
             country: "France",
-            MerchantId:1  
+            MerchantId:MerchantPG.id 
         })
         await Transaction.create({
             customerId: 3,
@@ -126,9 +125,9 @@ sequelize
             },
             amount: 250,
             status:"created",
-            billingId: 4,
-            shippingId:5,
-            MerchantId:1
+            billingId: AddressBillingUserTwo.id,
+            shippingId:AddressShippingUserTwo.id,
+            MerchantId:MerchantPG.id
         })
     })
 .then((result) => console.log("Fixtures done"))
