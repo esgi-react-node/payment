@@ -23,7 +23,7 @@ sequelize
         //CREATE USER
         let user = await User.create({
             username: "john.doe@gmail.com",
-            password: "test",
+            password: "abcABC123!@#",
             firstname:"John",
             lastname:"Doe",
             role: "admin"
@@ -146,7 +146,7 @@ sequelize
         //CREATE USER
         user = await User.create({
             username: "a.nairi@test.com",
-            password: "test",
+            password: "abcABC123!@#",
             firstname:"Amin",
             lastname:"Nairi",
             role: "user"
@@ -260,7 +260,7 @@ sequelize
         //CREATE USER
         user = await User.create({
             username: "q.hermiteau@test.com",
-            password: "test",
+            password: "abcABC123!@#",
             firstname:"Quentin",
             lastname:"Hermiteau",
             role: "user"
@@ -341,7 +341,7 @@ sequelize
         //CREATE USER
         user = await User.create({
             username: "a.oussaidi@test.com",
-            password: "test",
+            password: "abcABC123!@#",
             firstname:"Alicia",
             lastname:"Oussaidi",
             role: "user"
