@@ -6,10 +6,9 @@ const UserRouter = require("./users");
 const DashboardRouter = require("./dashboard");
 const verifyToken = require("../middlewares/verifyToken");
 const verifiyMerchant = require("../middlewares/merchantAuthentication");
-var cors = require('cors');
 
 const routerManager = (app) => {
-  app.use(cors());
+
   app.use("/", SecurityRouter);
   app.use("/process", ProcessRouter);
   app.use(verifyToken);
