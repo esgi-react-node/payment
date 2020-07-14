@@ -131,6 +131,8 @@ router.post("/:id/refund", async (req, res) => {
   if (req.merchant && !transaction.isOwner(req.merchant)) { return res.sendStatus(403) }
 
   const payinOperation = transaction.Operations.find(op => op.type === 'capture');
+  if (!payinOperation) { return res.status(500).send("No payments made for this transaction") }
+  
   const refundOperations = transaction.Operations.filter(op => op.type === 'refund');
   const refundedAmount = refundOperations.reduce((acc, el) => acc += el.amount, 0);
   const leftToRefund = payinOperation.amount - refundedAmount;
