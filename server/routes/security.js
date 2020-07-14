@@ -27,7 +27,7 @@ router.post("/login_check", (req, res) => {
     })
     .then((user) =>
       createToken({ username: user.username }).then((token) =>
-        res.json({ token })
+        res.json({ user, token })
       )
     )
     .catch((err) =>
