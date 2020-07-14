@@ -88,10 +88,20 @@ sequelize
             customerId: 2,
             tag: "orderId: 12341234",
             orderId: "3",
-            cart: {
-                "Thé": 2,
-                "Café": 3
-            },
+            cart: [
+                {
+                  "id": "1",
+                  "label": "Macbook Pro 16 pouces",
+                  "price": 270000,
+                  "quantity": 2
+                },
+                {
+                  "id": "2",
+                  "label": "Macbook Pro 13 pouces",
+                  "price": 230000,
+                  "quantity": 4
+                }
+              ],
             amount: 200,
             status:"created",
             billingId: AddressBillingUserOne.id,
@@ -119,10 +129,20 @@ sequelize
             customerId: 3,
             tag: "orderId: 12341234",
             orderId: "4",
-            cart: {
-                "Thé": 3,
-                "Café": 3
-            },
+            cart: [
+                {
+                  "id": "1",
+                  "label": "Macbook Pro 16 pouces",
+                  "price": 270000,
+                  "quantity": 2
+                },
+                {
+                  "id": "2",
+                  "label": "Macbook Pro 13 pouces",
+                  "price": 230000,
+                  "quantity": 4
+                }
+              ],
             amount: 250,
             status:"created",
             billingId: AddressBillingUserTwo.id,
