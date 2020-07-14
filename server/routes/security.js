@@ -36,7 +36,7 @@ router.post("/login_check", (req, res) => {
             username: "Invalid credentials",
             password: "Invalid credentials",
           })
-        : res.send(500)
+        : res.sendStatus(500)
     );
 });
 

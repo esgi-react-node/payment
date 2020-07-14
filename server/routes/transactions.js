@@ -1,6 +1,6 @@
 const express = require("express");
 const handleValidationError = require("../helpers/handleValidationError");
-const { Operation, Transaction, Address } = require("../models/sequelize");
+const { Operation, Transaction, Address, Merchant } = require("../models/sequelize");
 const TransactionMongo = require('../models/mongoose/Transaction');
 const PspService = require('../services/pspService');
 const MerchantService = require('../services/MerchantService');
@@ -123,10 +123,12 @@ router.post("/:id/refund", async (req, res) => {
       model: Operation
     }]
   });
+  if (!req.user && !req.merchant) { return res.sendStatus(403) }
+  
+  const merchant = await Merchant.findByPk(transaction.MerchantId);
 
-  if (!req.merchant || !transaction.isOwner(req.merchant)) {
-    return res.sendStatus(403);
-  }
+  if (req.user && (!merchant.isOwner(req.user) && !req.user.isAdmin())) {return res.status(403).send("You are not the owner of the transaction's merchant")}
+  if (req.merchant && !transaction.isOwner(req.merchant)) { return res.sendStatus(403) }
 
   const payinOperation = transaction.Operations.find(op => op.type === 'capture');
   const refundOperations = transaction.Operations.filter(op => op.type === 'refund');
@@ -137,6 +139,9 @@ router.post("/:id/refund", async (req, res) => {
     return res.status(500).send('Refund amount can\'t be above intial payment or inital payment minus already refunded amount');
   }
 
+  // Subtract refund amount from credit
+  merchant.credit -= amount;
+  await merchant.save();
   Operation.create({
     type: 'refund',
     amount,
@@ -165,7 +170,7 @@ router.put("/:id/confirm", async (req,res) => {
       model:Operation
     }]
   });
-
+  const merchant = await Merchant.findByPk(transaction.MerchantId);
   const captureOperation = transaction.Operations.find(op => op.type === 'capture');
   captureOperation.status = 'done';
   await captureOperation.save();
@@ -173,6 +178,8 @@ router.put("/:id/confirm", async (req,res) => {
   if (captureOperation.amount === transaction.amount) {
     transaction.status = 'paid';
     await transaction.save();
+    merchant.credit += transaction.amount;
+    await merchant.save();
   }
 
   MerchantService.confirmTransaction(transaction);

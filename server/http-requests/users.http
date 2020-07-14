@@ -3,7 +3,7 @@ POST http://localhost:3000/login_check
 Content-Type: application/json
 
 {
-  "username": "fake@email.fake",
+  "username": "john.doe@gmail.com",
   "password": "test"
 }
 
