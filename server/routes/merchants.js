@@ -64,7 +64,7 @@ router.get("/:id/credentials", async (req, res) => {
   const merchant = await merchantAccessFilterOwnerOrAdmin(req,res);
 
   merchant.generateCredentials()
-    .then(merchant => res.json({token : merchant.token, secret: merchant.secret}))
+    .then(merchant => res.json(merchant))
     .catch(err => {
       console.error(err);
       res.sendStatus(500);
