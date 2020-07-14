@@ -87,7 +87,7 @@ sequelize
                 }
               ],
             amount: 200,
-            status:"created",
+            status:"paid",
             billingId: AddressBillingUser.id,
             shippingId:AddressShippingUser.id,
             MerchantId:merchant.id
@@ -210,7 +210,7 @@ sequelize
                 }
               ],
             amount: 4270,
-            status:"created",
+            status:"paid",
             billingId: AddressBillingUser.id,
             shippingId:AddressShippingUser.id,
             MerchantId:merchant.id
@@ -252,7 +252,7 @@ sequelize
                 }
               ],
             amount: 470,
-            status:"created",
+            status:"paid",
             billingId: AddressBillingUser.id,
             shippingId:AddressShippingUser.id,
             MerchantId:merchant.id
