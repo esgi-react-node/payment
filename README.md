@@ -253,5 +253,18 @@ averageAmountByMerchant :
 ```
 [ { _id: 'marchant', avgAmountByMerchant: 625 } ]
 ```
+### Fixture
+User Login Admin :
+```
+email : john.doe@gmail.com
+password: test
+```
+User Login :
+```
+email: t.corio@gmail.com
+password : test
+```
+
+
 
 
